@@ -1,0 +1,37 @@
+{
+  "name": "multitape-tm-simulator",
+  "version": "1.0.0",
+  "description": "Simulates an arbitrary number of tapes for a turing machine",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode development",
+    "start": "webpack serve --mode development",
+    "test": "test"
+  },
+  "keywords": [
+    "tm",
+    "simulator"
+  ],
+  "author": "Gabrielle B Zhu",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "sass": "^1.69.3",
+    "sass-loader": "^13.3.2",
+    "ts-loader": "^9.5.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
