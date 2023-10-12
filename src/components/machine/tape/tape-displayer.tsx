@@ -3,13 +3,15 @@ import { Tape } from "./tape"
 
 interface TapeDisplayerProps {
   tape: Tape,
+  index: number,
+  handleRemoveTape: (tapeIndex: number) => void,
 }
 
 export const TapeDisplayer = (props: TapeDisplayerProps) => {
-  const {tape} = props;
+  const {tape, index, handleRemoveTape} = props;
 
   return (
-    <div className="tape-display">
+    <div key={index} className="tape-display">
       <div className="tape-label">
         {tape.tapeName}
       </div>
@@ -19,6 +21,9 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
         </div>
         <div className="tape-string">
           {tape.tapeVal}
+        </div>
+        <div className="remove-tape">
+          <button onClick={() => handleRemoveTape(index)}>remove</button>
         </div>
       </div>
     </div>
