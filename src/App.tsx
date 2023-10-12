@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
+import Simulator from "./components/machine";
 
 const App = () => {
-  return <div><h1>Testing</h1></div>;
+  return <div><Simulator /></div>
 };
 
 export default App;
