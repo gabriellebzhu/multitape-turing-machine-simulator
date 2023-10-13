@@ -1,79 +1,66 @@
-import { DIRECTION } from "../tape/constants"
+import { Move, TMError } from "./constants";
+import { moveInitializer } from "./move";
 
-export type SingleTapeMove = {
-  read: string,
-  write: string,
-  dir: DIRECTION,
-}
-
-type Move = {
-  startState: string,
-  endState: string,
-  tapeMoves: Array<SingleTapeMove>,
-}
-
-export default class TM { 
+export default class TM {
   step: number;
   moves: Array<Move>;
   tapeNum: number;
-  errors: Array<{lineNo: number, errMsg: string}>;
+  errors: Array<TMError>;
 
-  constructor(tapeNum: number = 1, programString: string) {
+  constructor(tapeNum: number, programString: string) {
     this.tapeNum = tapeNum;
+
     this.step = 0;
     this.errors = [];
-    this.moves = [];
-    this.parseMoves(programString);
+    if (tapeNum == 0) {
+      this.errors.push({ lineNo: -1, errMsg: "No tapes" });
+    } else {
+      const { parseMoves } = moveInitializer({ tapeNum });
+      const res = parseMoves(programString);
+      this.moves = res.lines;
+      this.errors.push(...res.errors);
+    }
   }
 
-  parseDirection(directionString: string): {error: boolean, dir: DIRECTION | null} {
-    if (directionString.toLowerCase() === "r" || directionString === ">") {
-      return {error: false, dir: DIRECTION.RIGHT};
-    }
-    if (directionString.toLowerCase() === "l" || directionString === "<") {
-      return {error: false, dir: DIRECTION.LEFT};
-    }
-    if (directionString === "*") return {error: false, dir: DIRECTION.STAY};
+  findMove(state: string, tapeVals: Array<string>) {
+    return this.moves.find((m) => {
+      if (m.startState != state) return false;
 
-    return {error: true, dir: null}
+      const matches = m.tapeMoves.filter(
+        (tapeMove, i) => tapeVals[i] != tapeMove.read
+      );
+      return matches.length == 0;
+    });
   }
 
-  parseMoves(programString: string) {
-    const lines = programString.split("\n");
-    const commentlessLines = lines.map((l,i) => {return {lineNo: i, line: l.split(";")[0].trimEnd().split(" ")}});
+  isMatch = (m: Move, state: string, tapeVals: Array<string>) => {
+    if (m.startState != state) return false;
 
-    this.errors = commentlessLines
-      .map((l) => {
-        const i = l.lineNo;
-        if (l.line.length == 0) return {lineNo: i, errMsg: ""};
-        if (l.line.length != this.tapeNum * 3 + 2)  return {lineNo: i, errMsg: ""};
-        return {lineNo: i, errMsg: `Expected ${this.tapeNum * 3 + 2} args`};
-      })
-      .filter(err => err.errMsg.length > 0);
+    const matches = m.tapeMoves.filter(
+      (tapeMove, i) => tapeVals[i] != tapeMove.read
+    );
+    return matches.length == 0;
+  };
 
-    const filteredLines = commentlessLines.filter(l => l.line.length == this.tapeNum * 3 + 2);
-    return filteredLines.forEach(l => {
-      const tapeMoves: Array<SingleTapeMove> = [];
-      
-      for (let i = 0; i < this.tapeNum; i++) {
-        const dirRes = this.parseDirection(l.line[1 + i * this.tapeNum * 2]);
-        if (dirRes.error) {
-          this.errors.push({lineNo: l.lineNo, errMsg: `Invalid direction for tape ${i}`})
-          return;
-        }
+  iterate(state: string, tapeVals: Array<string>) {
+    const matchedMove = this.moves.find((m) =>
+      this.isMatch(m, state, tapeVals)
+    );
 
-        tapeMoves.push({  
-          read: l.line[1 + i],
-          write: l.line[1 + i * this.tapeNum],
-          dir: dirRes.dir,
-        })
-      }
-    
-      this.moves.push({
-        startState: l.line[0],
-        endState: l.line[this.tapeNum * 3 + 1],
-        tapeMoves: tapeMoves,
-      });
-    })
+    if (matchedMove == null) {
+      this.errors.push({ lineNo: -1, errMsg: "No instruction found" });
+    }
+
+    // self.nfa.write(instr.f1)
+    // self.candidate.write(instr.f2)
+    // self.nfa.move(instr.move1)
+    // self.candidate.move(instr.move2)
+    // self.state = instr.end
+    // print(f"{self.step}: {instr}")
+    // print(f"\t     {self.nfa.pos_str()}\n\tnfa: {self.nfa}")
+    // print(
+    //     f"\t     {self.candidate.pos_str()}\n\tstr: {self.candidate}\n\n",
+    // )
+    // self.step += 1
   }
 }
