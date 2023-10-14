@@ -1,17 +1,29 @@
 import * as React from "react";
-import useProgramHooks from "./program-hooks";
 
-const ProgramComponent: React.FC = ()=> {
-  const {handleStart, handleStop} = useProgramHooks();
-  const [programInput, setProgramInput] = React.useState<string>("; hello");
+interface ProgramComponentProps {
+  isRunning: boolean;
+  handleStart: (programString: string) => void;
+  handleStop: () => void;
+}
 
-  const handleTextChange = React.useCallback((text:string) => {
-    setProgramInput(text);
-  }, [setProgramInput])
+const ProgramComponent: React.FC<ProgramComponentProps> = (
+  props: ProgramComponentProps
+) => {
+  const { handleStart, handleStop } = props;
+  const [programInput, setProgramInput] = React.useState<string>(
+    "0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"
+  );
+
+  const handleTextChange = React.useCallback(
+    (text: string) => {
+      setProgramInput(text);
+    },
+    [setProgramInput]
+  );
 
   const handleStartButton = React.useCallback(() => {
     handleStart(programInput);
-  }, [programInput])
+  }, [programInput, handleStart]);
 
   return (
     <div className="tape-container">
@@ -23,10 +35,13 @@ const ProgramComponent: React.FC = ()=> {
           <button>Step</button>
           <button>Reset</button>
         </div>
-        <textarea onChange={e => handleTextChange(e.target.value)} defaultValue="; hello"/>
+        <textarea
+          onChange={(e) => handleTextChange(e.target.value)}
+          defaultValue={"0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default ProgramComponent;
