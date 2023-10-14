@@ -5,6 +5,7 @@ import useTapes from "../hooks/use-tape-hooks";
 import useProgram from "../hooks/use-program-hooks";
 import useMachineStates from "../hooks/use-machine-state-hooks";
 import StateComponent from "./state";
+import { isStopState } from "./state/machine-state-helper";
 
 const Simulator: React.FC = () => {
   const { tapes, handleAddTape, handleRemoveTape } = useTapes();
@@ -18,8 +19,7 @@ const Simulator: React.FC = () => {
   const [intervalID, setIntervalID] = React.useState<NodeJS.Timeout>(null);
 
   React.useEffect(() => {
-    if (machineState === "halt-accept" || machineState === "halt")
-      setIsRunning(false);
+    if (isStopState(machineState)) setIsRunning(false);
 
     if (isRunning) {
       const interval = setInterval(tm.iterate, 50, tapes);
