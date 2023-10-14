@@ -8,7 +8,7 @@ import StateComponent from "./state";
 import { isStopState } from "./state/machine-state-helper";
 
 const Simulator: React.FC = () => {
-  const { tapes, handleAddTape, handleRemoveTape } = useTapes();
+  const { tapes, handleAddTape, handleRemoveTape, resetTapes } = useTapes();
   const machineStates = useMachineStates();
   const {
     steps,

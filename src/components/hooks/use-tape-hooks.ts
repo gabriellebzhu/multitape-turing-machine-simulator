@@ -16,7 +16,13 @@ const useTapes = () => {
     [tapes, setTapes]
   );
 
-  return { tapes, handleAddTape, handleRemoveTape };
+  const resetTapes = React.useCallback(() => {
+    tapes.forEach((t) => {
+      t.reset();
+    });
+  }, [tapes]);
+
+  return { tapes, handleAddTape, handleRemoveTape, resetTapes };
 };
 
 export default useTapes;
