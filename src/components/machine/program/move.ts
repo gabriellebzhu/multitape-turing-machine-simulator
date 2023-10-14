@@ -37,7 +37,7 @@ export const moveInitializer = (props: { tapeNum: number }) => {
     const tapeMoves: Array<SingleTapeMove> = [];
 
     for (let i = 0; i < tapeNum; i++) {
-      const dirRes = parseDirection(l.line[1 + i * tapeNum * 2]);
+      const dirRes = parseDirection(l.line[i + tapeNum * 2 + 1]);
       if (dirRes.error) {
         errors.push({
           lineNo: l.lineNo,
@@ -48,7 +48,7 @@ export const moveInitializer = (props: { tapeNum: number }) => {
 
       tapeMoves.push({
         read: l.line[1 + i],
-        write: l.line[1 + i * tapeNum],
+        write: l.line[1 + i + tapeNum],
         dir: dirRes.dir,
       });
     }
