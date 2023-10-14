@@ -7,20 +7,17 @@ export default class TM {
   moves: Array<Move>;
   tapeNum: number;
   errors: Array<TMError>;
-  state: string;
   setState: (state: string) => void;
   setSteps: (f: React.SetStateAction<number>) => void;
 
   constructor(
     tapeNum: number,
     programString: string,
-    state: string,
     setState: (state: string) => void,
     setSteps: (f: React.SetStateAction<number>) => void
   ) {
     console.log(`tapenum in constructor ${tapeNum}`);
     this.tapeNum = tapeNum;
-    this.state = state;
     this.setState = setState;
     this.setSteps = setSteps;
     this.step = 0;
@@ -46,8 +43,8 @@ export default class TM {
     });
   }
 
-  isMatch = (m: Move, tapes: Array<Tape>) => {
-    if (m.startState != this.state) return false;
+  isMatch = (m: Move, tapes: Array<Tape>, state: string) => {
+    if (m.startState != state) return false;
 
     const matches = m.tapeMoves.filter(
       (tapeMove, i) => tapes[i].read() != tapeMove.read
@@ -55,8 +52,8 @@ export default class TM {
     return matches.length == 0;
   };
 
-  iterate = (tapes: Array<Tape>): string => {
-    const matchedMove = this.moves.find((m) => this.isMatch(m, tapes));
+  iterate = (tapes: Array<Tape>, state: string): string => {
+    const matchedMove = this.moves.find((m) => this.isMatch(m, tapes, state));
 
     if (matchedMove == null) {
       console.log("WAH");
@@ -67,9 +64,11 @@ export default class TM {
 
     tapes.forEach((t, i) => {
       console.log(
-        `${i} | ${t.read()} ${matchedMove.tapeMoves[i].read} | write: ${
-          matchedMove.tapeMoves[i].write
-        }, move ${matchedMove.tapeMoves[i].dir}`
+        `tape ${i} state ${state} | ${t.read()} ${
+          matchedMove.tapeMoves[i].read
+        } | write: ${matchedMove.tapeMoves[i].write}, move ${
+          matchedMove.tapeMoves[i].dir
+        }`
       );
       t.write(matchedMove.tapeMoves[i].write);
       t.move(matchedMove.tapeMoves[i].dir);
