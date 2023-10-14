@@ -37,7 +37,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
 
   const [firstHalf, head, secondHalf] = React.useMemo(
     () => tape.getSegmentedVal(),
-    [tape, tape.pos, tape.originalTape]
+    [tape, tape.pos, tape.tapeVal.length, tape.originalTape]
   );
 
   React.useEffect(() => {

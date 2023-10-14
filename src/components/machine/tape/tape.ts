@@ -1,4 +1,4 @@
-import { DIRECTION, BLANK, ANY } from "./constants";
+import { DIRECTION, BLANK, ANY, BLANK_INPUT } from "./constants";
 
 export class Tape {
   originalTape: string;
@@ -47,11 +47,14 @@ export class Tape {
   }
 
   read(): string {
-    return this.tapeVal.at(this.pos);
+    if (this.tapeVal[this.pos] === BLANK) return BLANK_INPUT;
+    return this.tapeVal[this.pos];
   }
 
   write(symbol: string): void {
     if (symbol == ANY) return;
+    if (symbol === BLANK_INPUT) symbol = BLANK;
+
     this.tapeVal[this.pos] = symbol;
   }
 
@@ -63,6 +66,11 @@ export class Tape {
   getSegmentedVal() {
     const first = this.tapeVal.slice(0, this.pos);
     const second = this.tapeVal.slice(this.pos + 1);
-    return [first.join(""), this.tapeVal[this.pos], second.join("")];
+
+    return [
+      first.join("").replace(/ /g, "\u00A0"),
+      this.tapeVal[this.pos],
+      second.join("").replace(/ /g, "\u00A0"),
+    ];
   }
 }
