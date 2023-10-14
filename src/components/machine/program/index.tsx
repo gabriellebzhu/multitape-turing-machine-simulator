@@ -38,8 +38,19 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
   );
 
   const handleStartButton = React.useCallback(() => {
+    if (startStepIsDisabled) return;
     handleStart(programInput);
-  }, [programInput, handleStart]);
+  }, [startStepIsDisabled, programInput, handleStart]);
+
+  const handleStepButton = React.useCallback(() => {
+    if (startStepIsDisabled) return;
+    handleStep();
+  }, [startStepIsDisabled, handleStep]);
+
+  const handleStopButton = React.useCallback(() => {
+    if (!isRunning) return;
+    handleStop();
+  }, [isRunning, handleStop]);
 
   return (
     <div className="tape-container">
@@ -49,10 +60,10 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
           <button disabled={startStepIsDisabled} onClick={handleStartButton}>
             Start
           </button>
-          <button disabled={!isRunning} onClick={handleStop}>
+          <button disabled={!isRunning} onClick={handleStopButton}>
             Pause
           </button>
-          <button disabled={startStepIsDisabled} onClick={handleStep}>
+          <button disabled={startStepIsDisabled} onClick={handleStepButton}>
             Step
           </button>
           <button onClick={handleReset}>Reset</button>
