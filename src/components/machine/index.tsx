@@ -48,7 +48,7 @@ const Simulator: React.FC = () => {
   }, [isRunning, tapes, tm, machineState]);
 
   return (
-    <div>
+    <div className="simulator">
       <h1>Multitape Turing Simulator</h1>
       <TapesComponent
         tapes={tapes}
