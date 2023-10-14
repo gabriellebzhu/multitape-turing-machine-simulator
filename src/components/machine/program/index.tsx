@@ -7,6 +7,8 @@ interface ProgramComponentProps {
   machineState: string;
   handleStart: (programString: string) => void;
   handleStop: () => void;
+  handleStep: () => void;
+  handleReset: () => void;
 }
 
 const ProgramComponent: React.FC<ProgramComponentProps> = (
@@ -19,6 +21,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
     isRunning,
     isStepping,
     machineState,
+    handleReset,
   } = props;
   const [programInput, setProgramInput] = React.useState<string>(
     "0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"
@@ -43,7 +46,6 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
       <div>Program</div>
       <div className="program-input__container">
         <div className="program-input__controller">
-          <button>Reset</button>
           <button disabled={startStepIsDisabled} onClick={handleStartButton}>
             Start
           </button>
@@ -53,6 +55,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
           <button disabled={startStepIsDisabled} onClick={handleStep}>
             Step
           </button>
+          <button onClick={handleReset}>Reset</button>
         </div>
         <textarea
           onChange={(e) => handleTextChange(e.target.value)}

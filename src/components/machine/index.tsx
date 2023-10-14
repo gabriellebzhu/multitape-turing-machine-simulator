@@ -27,6 +27,14 @@ const Simulator: React.FC = () => {
   });
   const [intervalID, setIntervalID] = React.useState<NodeJS.Timeout>(null);
 
+  const handleReset = React.useCallback(() => {
+    setIsRunning(false);
+    setIsStepping(false);
+    setSteps(0);
+    tm?.setState(initialState);
+    resetTapes();
+  }, [setIsRunning, setIsStepping, setSteps, tm, resetTapes]);
+
   React.useEffect(() => {
     if (isStopState(machineState)) setIsRunning(false);
 
@@ -61,6 +69,7 @@ const Simulator: React.FC = () => {
         handleStep={handleStep}
         isStepping={isStepping}
         machineState={machineState}
+        handleReset={handleReset}
       />
     </div>
   );
