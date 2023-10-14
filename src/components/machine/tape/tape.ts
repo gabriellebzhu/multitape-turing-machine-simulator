@@ -54,4 +54,9 @@ export class Tape {
     if (symbol == ANY) return;
     this.tapeVal[this.pos] = symbol;
   }
+
+  setVal(inputString: string) {
+    this.originalTape = inputString;
+    this.tapeVal = inputString.split("");
+  }
 }
