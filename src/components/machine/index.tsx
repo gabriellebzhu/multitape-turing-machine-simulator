@@ -1,6 +1,9 @@
 import * as React from "react";
 import TapesComponent from "./tape";
 import ProgramComponent from "./program";
+import useTapes from "../hooks/use-tape-hooks";
+import useProgram from "../hooks/use-program-hooks";
+import useMachineStates from "../hooks/use-machine-state-hooks";
 import StateComponent from "./state";
 
 const Simulator: React.FC = () => {
@@ -12,6 +15,21 @@ const Simulator: React.FC = () => {
     setIsRunning,
     setSteps,
   });
+  const [intervalID, setIntervalID] = React.useState<NodeJS.Timeout>(null);
+
+  React.useEffect(() => {
+    if (machineState === "halt-accept" || machineState === "halt")
+      setIsRunning(false);
+
+    if (isRunning) {
+      const interval = setInterval(tm.iterate, 50, tapes);
+      setIntervalID(interval);
+      return () => clearInterval(interval);
+    }
+
+    if (intervalID) clearInterval(intervalID);
+  }, [isRunning, tapes, tm, machineState]);
+
   return (
     <div>
       <h1>Multitape Turing Simulator</h1>
