@@ -36,6 +36,56 @@
     align-items: baseline;
     font-size: 14px;
   }
+
+  &__visualizer {
+    border: solid 1px #b5a792;
+    margin: .5rem 0rem;
+    padding: .3rem;
+    overflow-x: scroll;
+    overflow-clip-margin: -2px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    
+    &__grid {  
+      display: grid;
+      justify-content: center;
+      grid-template-columns: minmax(300px, 1fr) min-content minmax(300px, 1fr);
+    }
+
+    &__marker {
+      grid-row-start: 1;
+      grid-row-end: 1;
+      grid-column-start: 2;
+      grid-column-end: 2;
+      font-size: 11px;
+    }
+    &__first {
+      grid-row-start: 2;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 2;
+      display: flex;
+      justify-content: end;
+    }
+    &__head {
+      grid-row-start: 2;
+      grid-row-end: 2;
+      grid-column-start: 2;
+      grid-column-end: 3;
+      font-weight: 700;
+    }
+    &__second {
+      grid-row-start: 2;
+      grid-row-end: 2;
+      grid-column-start: 3;
+      grid-column-end: 3;
+    }
+    &__scroller {
+      grid-row-start: 1;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
   }
 
   &__value{
