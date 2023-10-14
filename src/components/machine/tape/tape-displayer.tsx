@@ -35,6 +35,11 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
     handleRemoveTape(index);
   }, [isDisabled, handleRemoveTape, index]);
 
+  const [firstHalf, head, secondHalf] = React.useMemo(
+    () => tape.getSegmentedVal(),
+    [tape, tape.pos, tape.originalTape]
+  );
+
   React.useEffect(() => {
     setTapeText(tape.originalTape);
   }, [tape]);
@@ -49,9 +54,9 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
 
   return (
     <div className="tape-display">
-      <div className="tape-label">{tape.tapeName}</div>
-      <div className="tape-visualizer">
-        <div className="tape-value__container">
+      <div className="tape-display__config">
+        <div className="tape-display__label">Tape {index}:</div>
+        <div className="tape-display__value__container">
           <input
             onChange={(e) => handleTextChange(e.target.value)}
             disabled={isDisabled}
@@ -60,13 +65,18 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
           <button disabled={isDisabled} onClick={x}>
             set
           </button>
-        </div>
-        <div className="marker">{tape.pos}</div>
-        <div className="tape-string">{tape.tapeVal}</div>
-        <div className="remove-tape">
           <button disabled={isDisabled} onClick={handleRemoveTapeBtn}>
             remove
           </button>
+          <div className="remove-tape"></div>
+        </div>
+      </div>
+      <div className="tape-display__visualizer">
+        <div className="tape-display__visualizer__grid">
+          <div className="tape-display__visualizer__marker">{"\u25BC"}</div>
+          <div className="tape-display__visualizer__first">{firstHalf}</div>
+          <div className="tape-display__visualizer__head">{head}</div>
+          <div className="tape-display__visualizer__second">{secondHalf}</div>
         </div>
       </div>
     </div>

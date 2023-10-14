@@ -59,4 +59,10 @@ export class Tape {
     this.originalTape = inputString;
     this.tapeVal = inputString.split("");
   }
+
+  getSegmentedVal() {
+    const first = this.tapeVal.slice(0, this.pos);
+    const second = this.tapeVal.slice(this.pos + 1);
+    return [first.join(""), this.tapeVal[this.pos], second.join("")];
+  }
 }
