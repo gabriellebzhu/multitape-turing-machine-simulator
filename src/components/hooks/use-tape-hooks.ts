@@ -4,10 +4,12 @@ import { DEFAULT_TAPE_VAL } from "../machine/tape/constants";
 
 const useTapes = () => {
   const [tapes, setTapes] = React.useState<Array<Tape>>([]);
+  const [tapeCounter, setTapeCounter] = React.useState<number>(0);
 
   const handleAddTape = React.useCallback(() => {
-    const newTape = new Tape(DEFAULT_TAPE_VAL, tapes.length.toString());
+    const newTape = new Tape(DEFAULT_TAPE_VAL, tapeCounter.toString());
     setTapes([...tapes, newTape]);
+    setTapeCounter((x) => x + 1);
   }, [tapes, setTapes]);
 
   const handleRemoveTape = React.useCallback(

@@ -24,8 +24,10 @@ const TapesComponent: React.FC<TapesComponentProps> = (
   } = props;
 
   return (
-    <div className="tapes-container">
-      <div>Tapes</div>
+    <div className="tapes-display">
+      <div className="tapes-display__title">
+        <h2>Tapes</h2>
+      </div>
       <div className="tapes-display__container">
         {tapes.map((t, i) => (
           <TapeDisplayer
