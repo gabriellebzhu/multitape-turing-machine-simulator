@@ -56,6 +56,7 @@ const Simulator: React.FC = () => {
         handleRemoveTape={handleRemoveTape}
         isRunning={isRunning}
         isStepping={isStepping}
+        handleReset={handleReset}
       />
       <StateComponent
         state={machineState}

@@ -8,13 +8,20 @@ interface TapesComponentProps {
   handleRemoveTape: (index: number) => void;
   isRunning: boolean;
   isStepping: boolean;
+  handleReset: () => void;
 }
 
 const TapesComponent: React.FC<TapesComponentProps> = (
   props: TapesComponentProps
 ) => {
-  const { tapes, handleAddTape, handleRemoveTape, isRunning, isStepping } =
-    props;
+  const {
+    tapes,
+    handleReset,
+    handleAddTape,
+    handleRemoveTape,
+    isRunning,
+    isStepping,
+  } = props;
 
   return (
     <div className="tapes-container">
@@ -24,8 +31,10 @@ const TapesComponent: React.FC<TapesComponentProps> = (
           <TapeDisplayer
             handleRemoveTape={handleRemoveTape}
             tape={t}
+            key={i.toString()}
             index={i}
             isDisabled={isRunning || isStepping}
+            handleReset={handleReset}
           />
         ))}
       </div>

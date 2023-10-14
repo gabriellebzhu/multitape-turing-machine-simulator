@@ -42,6 +42,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
   React.useEffect(() => {
     if (shouldSet) {
       tape.setVal(tapeText);
+      handleReset();
       setShouldSet(false);
     }
   }, [tape, shouldSet, tapeText]);
