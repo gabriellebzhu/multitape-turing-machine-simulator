@@ -30,6 +30,10 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
     setShouldSet(true);
   }, [tapeText, setTapeText, isDisabled]);
 
+  const handleRemoveTapeBtn = React.useCallback(() => {
+    if (isDisabled) return;
+    handleRemoveTape(index);
+  }, [isDisabled, handleRemoveTape, index]);
 
   React.useEffect(() => {
     setTapeText(tape.originalTape);
