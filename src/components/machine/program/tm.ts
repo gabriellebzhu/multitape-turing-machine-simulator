@@ -1,3 +1,4 @@
+import { Tape } from "../tape/tape";
 import { Move, TMError } from "./constants";
 import { moveInitializer } from "./move";
 
@@ -6,10 +7,22 @@ export default class TM {
   moves: Array<Move>;
   tapeNum: number;
   errors: Array<TMError>;
+  state: string;
+  setState: (state: string) => void;
+  setSteps: (f: React.SetStateAction<number>) => void;
 
-  constructor(tapeNum: number, programString: string) {
+  constructor(
+    tapeNum: number,
+    programString: string,
+    state: string,
+    setState: (state: string) => void,
+    setSteps: (f: React.SetStateAction<number>) => void
+  ) {
+    console.log(`tapenum in constructor ${tapeNum}`);
     this.tapeNum = tapeNum;
-
+    this.state = state;
+    this.setState = setState;
+    this.setSteps = setSteps;
     this.step = 0;
     this.errors = [];
     if (tapeNum == 0) {
@@ -33,34 +46,37 @@ export default class TM {
     });
   }
 
-  isMatch = (m: Move, state: string, tapeVals: Array<string>) => {
-    if (m.startState != state) return false;
+  isMatch = (m: Move, tapes: Array<Tape>) => {
+    if (m.startState != this.state) return false;
 
     const matches = m.tapeMoves.filter(
-      (tapeMove, i) => tapeVals[i] != tapeMove.read
+      (tapeMove, i) => tapes[i].read() != tapeMove.read
     );
     return matches.length == 0;
   };
 
-  iterate(state: string, tapeVals: Array<string>) {
-    const matchedMove = this.moves.find((m) =>
-      this.isMatch(m, state, tapeVals)
-    );
+  iterate = (tapes: Array<Tape>): string => {
+    const matchedMove = this.moves.find((m) => this.isMatch(m, tapes));
 
     if (matchedMove == null) {
+      console.log("WAH");
       this.errors.push({ lineNo: -1, errMsg: "No instruction found" });
+      this.setState("halt");
+      return "halt";
     }
 
-    // self.nfa.write(instr.f1)
-    // self.candidate.write(instr.f2)
-    // self.nfa.move(instr.move1)
-    // self.candidate.move(instr.move2)
-    // self.state = instr.end
-    // print(f"{self.step}: {instr}")
-    // print(f"\t     {self.nfa.pos_str()}\n\tnfa: {self.nfa}")
-    // print(
-    //     f"\t     {self.candidate.pos_str()}\n\tstr: {self.candidate}\n\n",
-    // )
-    // self.step += 1
-  }
+    tapes.forEach((t, i) => {
+      console.log(
+        `${i} | ${t.read()} ${matchedMove.tapeMoves[i].read} | write: ${
+          matchedMove.tapeMoves[i].write
+        }, move ${matchedMove.tapeMoves[i].dir}`
+      );
+      t.write(matchedMove.tapeMoves[i].write);
+      t.move(matchedMove.tapeMoves[i].dir);
+    });
+
+    this.setSteps((x) => x + 1);
+    this.setState(matchedMove.endState);
+    return matchedMove.endState;
+  };
 }
