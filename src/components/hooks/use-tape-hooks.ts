@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Tape } from "../machine/tape/tape";
+import { DEFAULT_TAPE_VAL } from "../machine/tape/constants";
 
 const useTapes = () => {
   const [tapes, setTapes] = React.useState<Array<Tape>>([]);
 
   const handleAddTape = React.useCallback(() => {
-    const newTape = new Tape("100010", "test");
+    const newTape = new Tape(DEFAULT_TAPE_VAL, tapes.length.toString());
     setTapes([...tapes, newTape]);
   }, [tapes, setTapes]);
 
