@@ -1,1 +1,7 @@
 @import "./tape/index.scss";
+
+.simulator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
