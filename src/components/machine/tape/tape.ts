@@ -13,6 +13,7 @@ export class Tape {
 
   move(dir: DIRECTION): void {
     switch(dir) {
+    switch (dir) {
       case DIRECTION.STAY:
         break;
       case DIRECTION.LEFT:

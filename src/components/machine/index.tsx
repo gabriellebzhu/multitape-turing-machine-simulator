@@ -10,10 +10,19 @@ import { isStopState } from "./state/machine-state-helper";
 const Simulator: React.FC = () => {
   const { tapes, handleAddTape, handleRemoveTape } = useTapes();
   const machineStates = useMachineStates();
-  const { steps, setSteps, isRunning, setIsRunning } = machineStates;
-  const { tm, machineState, handleStart, handleStop } = useProgram({
+  const {
+    steps,
+    setSteps,
+    isRunning,
+    isStepping,
+    setIsRunning,
+    setIsStepping,
+    initialState,
+  } = machineStates;
+  const { tm, machineState, handleStart, handleStop, handleStep } = useProgram({
     tapes,
     setIsRunning,
+    setIsStepping,
     setSteps,
   });
   const [intervalID, setIntervalID] = React.useState<NodeJS.Timeout>(null);
@@ -38,6 +47,7 @@ const Simulator: React.FC = () => {
         handleAddTape={handleAddTape}
         handleRemoveTape={handleRemoveTape}
         isRunning={isRunning}
+        isStepping={isStepping}
       />
       <StateComponent
         state={machineState}
@@ -48,6 +58,9 @@ const Simulator: React.FC = () => {
         handleStart={handleStart}
         handleStop={handleStop}
         isRunning={isRunning}
+        handleStep={handleStep}
+        isStepping={isStepping}
+        machineState={machineState}
       />
     </div>
   );

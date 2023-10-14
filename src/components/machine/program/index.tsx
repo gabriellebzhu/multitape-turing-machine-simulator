@@ -1,7 +1,10 @@
 import * as React from "react";
+import { isStopState } from "../state/machine-state-helper";
 
 interface ProgramComponentProps {
   isRunning: boolean;
+  isStepping: boolean;
+  machineState: string;
   handleStart: (programString: string) => void;
   handleStop: () => void;
 }
@@ -9,10 +12,20 @@ interface ProgramComponentProps {
 const ProgramComponent: React.FC<ProgramComponentProps> = (
   props: ProgramComponentProps
 ) => {
-  const { handleStart, handleStop } = props;
+  const {
+    handleStart,
+    handleStop,
+    handleStep,
+    isRunning,
+    isStepping,
+    machineState,
+  } = props;
   const [programInput, setProgramInput] = React.useState<string>(
     "0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"
   );
+
+  const startStepIsDisabled =
+    isRunning || isStepping || isStopState(machineState);
 
   const handleTextChange = React.useCallback(
     (text: string) => {
@@ -30,10 +43,16 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
       <div>Program</div>
       <div className="program-input__container">
         <div className="program-input__controller">
-          <button onClick={handleStartButton}>Start</button>
-          <button onClick={handleStop}>Pause</button>
-          <button>Step</button>
           <button>Reset</button>
+          <button disabled={startStepIsDisabled} onClick={handleStartButton}>
+            Start
+          </button>
+          <button disabled={!isRunning} onClick={handleStop}>
+            Pause
+          </button>
+          <button disabled={startStepIsDisabled} onClick={handleStep}>
+            Step
+          </button>
         </div>
         <textarea
           onChange={(e) => handleTextChange(e.target.value)}
