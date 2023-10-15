@@ -7,7 +7,7 @@ interface ProgramComponentProps {
   machineState: string;
   handleStart: (programString: string) => void;
   handleStop: () => void;
-  handleStep: () => void;
+  handleStep: (programString: string) => void;
   handleReset: () => void;
 }
 
@@ -44,8 +44,8 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
 
   const handleStepButton = React.useCallback(() => {
     if (startStepIsDisabled) return;
-    handleStep();
-  }, [startStepIsDisabled, handleStep]);
+    handleStep(programInput);
+  }, [programInput, startStepIsDisabled, handleStep]);
 
   const handleStopButton = React.useCallback(() => {
     if (!isRunning) return;
