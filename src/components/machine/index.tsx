@@ -62,6 +62,7 @@ const Simulator: React.FC = () => {
         state={machineState}
         isRunning={isRunning}
         steps={steps}
+        errors={tm?.errors}
       />
       <ProgramComponent
         handleStart={handleStart}
