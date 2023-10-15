@@ -14,16 +14,18 @@
     flex-direction: column;
   }
 
-  &__title {
-    align-content: flex-start;
-    width: 100%;
-  }
 
-  &__title > h2 {
-    color: #b5a792;
-  }
 }
 
+.title {
+  align-content: flex-start;
+  width: 100%;
+}
+
+.title > h2 {
+  font-size: small;
+  color: #b5a792;
+}
 
 .tape-display {
   padding: .5rem .25rem;
@@ -58,6 +60,8 @@
       grid-column-start: 2;
       grid-column-end: 2;
       font-size: 11px;
+      display: flex;
+      justify-content: center;
     }
     &__first {
       grid-row-start: 2;
