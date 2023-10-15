@@ -23,6 +23,19 @@ const TapesComponent: React.FC<TapesComponentProps> = (
     isStepping,
   } = props;
 
+  const handleAddTapeButton = React.useCallback(() => {
+    handleAddTape();
+    handleReset();
+  }, [handleAddTape, handleReset]);
+
+  const handleRemoveTapeButton = React.useCallback(
+    (index: number) => {
+      handleRemoveTape(index);
+      handleReset();
+    },
+    [handleRemoveTape, handleReset]
+  );
+
   return (
     <div className="tapes-display">
       <div className="tapes-display__title">
@@ -31,7 +44,7 @@ const TapesComponent: React.FC<TapesComponentProps> = (
       <div className="tapes-display__container">
         {tapes.map((t, i) => (
           <TapeDisplayer
-            handleRemoveTape={handleRemoveTape}
+            handleRemoveTape={handleRemoveTapeButton}
             tape={t}
             key={i.toString()}
             index={i}
@@ -44,7 +57,7 @@ const TapesComponent: React.FC<TapesComponentProps> = (
         <button
           className="add-tape_btn"
           disabled={isRunning || isStepping}
-          onClick={handleAddTape}
+          onClick={handleAddTapeButton}
         >
           Add tape
         </button>
