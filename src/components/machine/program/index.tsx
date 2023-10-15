@@ -53,8 +53,10 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
   }, [isRunning, handleStop]);
 
   return (
-    <div className="tape-container">
-      <div>Program</div>
+    <div className="program-input">
+      <div className="title">
+        <h2>Program</h2>
+      </div>
       <div className="program-input__container">
         <div className="program-input__controller">
           <button disabled={startStepIsDisabled} onClick={handleStartButton}>

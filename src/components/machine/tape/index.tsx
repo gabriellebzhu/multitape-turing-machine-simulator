@@ -38,7 +38,7 @@ const TapesComponent: React.FC<TapesComponentProps> = (
 
   return (
     <div className="tapes-display">
-      <div className="tapes-display__title">
+      <div className="title">
         <h2>Tapes</h2>
       </div>
       <div className="tapes-display__container">
