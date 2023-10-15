@@ -4,7 +4,7 @@ import { Tape } from "./tape";
 
 interface TapesComponentProps {
   tapes: Array<Tape>;
-  handleAddTape: () => void;
+  handleAddTape: (num: number) => void;
   handleRemoveTape: (index: number) => void;
   isRunning: boolean;
   isStepping: boolean;
@@ -22,9 +22,11 @@ const TapesComponent: React.FC<TapesComponentProps> = (
     isRunning,
     isStepping,
   } = props;
+  const [tapeNumInput, setTapeNumInput] = React.useState<string>("2");
+  const [tapesToAdd, setTapesToAdd] = React.useState<number>(2);
 
   const handleAddTapeButton = React.useCallback(() => {
-    handleAddTape();
+    handleAddTape(1);
     handleReset();
   }, [handleAddTape, handleReset]);
 
@@ -35,6 +37,32 @@ const TapesComponent: React.FC<TapesComponentProps> = (
     },
     [handleRemoveTape, handleReset]
   );
+
+  const handleSetTapeNumber = React.useCallback(() => {
+    let num = Number(tapeNumInput.trim());
+    if (Number.isNaN(num)) {
+      setTapeNumInput(tapes.length.toString());
+      return;
+    }
+
+    if (num == tapes.length) return;
+    handleRemoveTape(-1);
+
+    if (num > 15) {
+      setTapeNumInput("15");
+      num = 15;
+    }
+    if (num < 0) {
+      setTapeNumInput("0");
+      num = 0;
+    }
+    setTapesToAdd(num);
+  }, [tapeNumInput, tapes]);
+
+  React.useEffect(() => {
+    handleAddTape(tapesToAdd);
+    setTapesToAdd(0);
+  }, [tapesToAdd]);
 
   return (
     <div className="tapes-display">
@@ -54,6 +82,21 @@ const TapesComponent: React.FC<TapesComponentProps> = (
         ))}
       </div>
       <div className="add-tape__container">
+        <div>
+          Number of Tapes
+          <input
+            value={tapeNumInput}
+            onChange={(e) => {
+              setTapeNumInput(e.target.value);
+            }}
+          />
+          <button
+            disabled={isRunning || isStepping}
+            onClick={handleSetTapeNumber}
+          >
+            set
+          </button>
+        </div>
         <button
           className="add-tape_btn"
           disabled={isRunning || isStepping}
