@@ -99,3 +99,26 @@
   }
 }
 
+.add-tapes {
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  align-items: center;
+
+  &__set-tapes {
+    margin: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__label {
+      margin-right: .5rem;
+    }
+    
+    &__input {
+      width: 2rem;
+      text-align: center;
+    }
+  }
+}

@@ -81,10 +81,13 @@ const TapesComponent: React.FC<TapesComponentProps> = (
           />
         ))}
       </div>
-      <div className="add-tape__container">
-        <div>
-          Number of Tapes
+      <div className="add-tapes">
+        <div className="add-tapes__set-tapes">
+          <label className="add-tapes__set-tapes__label">
+            Set number of tapes
+          </label>
           <input
+            className="add-tapes__set-tapes__input"
             value={tapeNumInput}
             onChange={(e) => {
               setTapeNumInput(e.target.value);
@@ -94,15 +97,22 @@ const TapesComponent: React.FC<TapesComponentProps> = (
             disabled={isRunning || isStepping}
             onClick={handleSetTapeNumber}
           >
-            set
+            Set
           </button>
         </div>
+        <button
+          className="remove-tape_btn"
+          disabled={isRunning || isStepping}
+          onClick={() => handleRemoveTape(-1)}
+        >
+          Remove all tapes{" "}
+        </button>
         <button
           className="add-tape_btn"
           disabled={isRunning || isStepping}
           onClick={handleAddTapeButton}
         >
-          Add tape
+          Add a tape
         </button>
       </div>
     </div>
