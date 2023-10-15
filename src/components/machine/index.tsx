@@ -8,6 +8,7 @@ import StateComponent from "./state";
 import { isStopState } from "./state/machine-state-helper";
 
 const Simulator: React.FC = () => {
+  // const { errorState, setErrors } = useError();
   const { tapes, handleAddTape, handleRemoveTape, resetTapes } = useTapes();
   const machineStates = useMachineStates();
   const {
@@ -19,12 +20,13 @@ const Simulator: React.FC = () => {
     setIsStepping,
     initialState,
   } = machineStates;
-  const { tm, machineState, handleStart, handleStop, handleStep } = useProgram({
-    tapes,
-    setIsRunning,
-    setIsStepping,
-    setSteps,
-  });
+  const { tm, setTM, machineState, handleStart, handleStop, handleStep } =
+    useProgram({
+      tapes,
+      setIsRunning,
+      setIsStepping,
+      setSteps,
+    });
   const [intervalID, setIntervalID] = React.useState<NodeJS.Timeout>(null);
 
   const handleReset = React.useCallback(() => {
@@ -32,8 +34,9 @@ const Simulator: React.FC = () => {
     setIsStepping(false);
     setSteps(0);
     tm?.setState(initialState);
+    setTM(null);
     resetTapes();
-  }, [setIsRunning, setIsStepping, setSteps, tm, resetTapes]);
+  }, [tapes.length, setIsRunning, setIsStepping, setSteps, tm, resetTapes]);
 
   React.useEffect(() => {
     if (isStopState(machineState)) setIsRunning(false);
