@@ -75,6 +75,7 @@ const Simulator: React.FC = () => {
         isStepping={isStepping}
         machineState={machineState}
         handleReset={handleReset}
+        tm={tm}
       />
     </div>
   );
