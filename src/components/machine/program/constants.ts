@@ -9,6 +9,7 @@ export interface SingleTapeMove {
 }
 
 export interface Move {
+  lineNo: number;
   startState: string;
   endState: string;
   tapeMoves: Array<SingleTapeMove>;

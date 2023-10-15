@@ -1,9 +1,10 @@
 import { Tape } from "../tape/tape";
-import { Move, TMError } from "./constants";
+import { LineAndNumber, Move, TMError } from "./constants";
 import { moveInitializer } from "./move";
 
 export default class TM {
   step: number;
+  lines: Array<LineAndNumber>;
   moves: Array<Move>;
   tapeNum: number;
   errors: Array<TMError>;
@@ -26,7 +27,8 @@ export default class TM {
     } else {
       const { parseMoves } = moveInitializer({ tapeNum });
       const res = parseMoves(programString);
-      this.moves = res.lines;
+      this.lines = res.commentlessLines;
+      this.moves = res.moves;
       this.errors.push(...res.errors);
     }
   }
@@ -54,8 +56,6 @@ export default class TM {
     const matchedMove = this.moves.find((m) => this.isMatch(m, tapes, state));
 
     if (matchedMove == null) {
-      console.log("WAH");
-
       this.errors.push({
         lineNo: -1,
         errMsg: `No instruction found for state: ${state} ${tapes

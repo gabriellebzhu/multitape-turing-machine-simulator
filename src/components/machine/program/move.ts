@@ -43,7 +43,12 @@ export const moveInitializer = (props: { tapeNum: number }) => {
           lineNo: l.lineNo,
           errMsg: `Invalid direction for tape ${i}`,
         });
-        return { startState: "", endState: "", tapeMoves: [] };
+        return {
+          lineNo: l.lineNo,
+          startState: "",
+          endState: "",
+          tapeMoves: [],
+        };
       }
 
       tapeMoves.push({
@@ -52,7 +57,12 @@ export const moveInitializer = (props: { tapeNum: number }) => {
         dir: dirRes.dir,
       });
     }
-    return { startState: l.line[0], endState: l.line[argNum - 1], tapeMoves };
+    return {
+      lineNo: l.lineNo,
+      startState: l.line[0],
+      endState: l.line[argNum - 1],
+      tapeMoves,
+    };
   };
 
   const parseMoves = (programString: string) => {
@@ -77,8 +87,9 @@ export const moveInitializer = (props: { tapeNum: number }) => {
       .filter((m) => m.tapeMoves.length > 0);
 
     return {
-      lines: moves,
-      errors: errors,
+      commentlessLines,
+      moves,
+      errors,
     };
   };
 
