@@ -9,7 +9,7 @@ interface StateComponentProps {
 }
 
 const StateComponent: React.FC<StateComponentProps> = (
-  props: StateComponentProps
+  props: StateComponentProps,
 ) => {
   const { state, steps, errors } = props;
   const hasUnLinedError = errors?.length && errors[0].lineNo < 0;

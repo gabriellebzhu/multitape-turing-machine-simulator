@@ -1,18 +1,17 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-      "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "root": true,
   "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended-type-checked"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "prettier"
   ],
   "parserOptions": {
-      "tsconfigRootDir": "./",
-      "project": ["tsconfig.json"],
-      "sourceType": "module"
+    "tsconfigRootDir": "./",
+    "project": ["tsconfig.json"],
+    "sourceType": "module"
   },
   "overrides": [
     {
@@ -20,8 +19,11 @@
       "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
   ],
-  "env" : {
+  "env": {
     "es6": true
   },
-  "ignorePatterns": ["**.config.js", "dist/**",  "src/index.*"]
+  "rules": {
+    "quotes": ["error", "double"]
+  },
+  "ignorePatterns": ["**.config.js", "dist/**", "src/index.*"]
 }

@@ -34,9 +34,8 @@ const parseDirection = (directionString: string): ParsedDirection => {
   return { error: true, dir: null };
 };
 
-
 /**
- * Sets up and returns a function that parses a program string into an 
+ * Sets up and returns a function that parses a program string into an
  * array of moves, the program string with all comments removed (as an array)
  * of lines, and any errors that have occured while parsing the string.
  * @param tapeNum number of tapes expected.
@@ -45,7 +44,7 @@ const parseDirection = (directionString: string): ParsedDirection => {
 export const moveInitializer = (tapeNum: number) => {
   const argNum = tapeNum * 3 + 2;
   const errors: Array<TMError> = [];
- 
+
   const extractMovesFromLine = (l: LineAndNumber): Move => {
     const tapeMoves: Array<SingleTapeMove> = [];
 
@@ -89,11 +88,11 @@ export const moveInitializer = (tapeNum: number) => {
     errors.push(
       ...commentlessLines
         .map((l) => validateLineLength(l, argNum))
-        .filter((err) => err.errMsg.length > 0)
+        .filter((err) => err.errMsg.length > 0),
     );
 
     const filteredLines = commentlessLines.filter(
-      (l) => l.line.length == argNum
+      (l) => l.line.length == argNum,
     );
 
     const moves = filteredLines

@@ -1,22 +1,23 @@
 @import "./components/machine/index.scss";
 
 h1 {
-  font-family:monospace;
+  font-family: monospace;
 }
 
 h2 {
-  font-family:monospace;
+  font-family: monospace;
   font-size: 14px;
   margin: 0;
 }
 
-
 input {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   border: none;
-  padding: .2rem;
+  padding: 0.2rem;
   border-bottom: solid 1px #b5a792;
-  transition: border-bottom .2s ease-in-out, background-color .2s ease-in-out;
+  transition:
+    border-bottom 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
   background: none;
 }
 
@@ -24,17 +25,21 @@ input:focus {
   outline: none;
   border-bottom: solid 3px #b5a792;
   background-color: #e9e0d3;
-  transition: border-bottom .2s ease-in-out, background-color .2s ease-in-out;
+  transition:
+    border-bottom 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
 }
 
 button {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   background-color: #e9e0d3;
   border: solid 1px #b5a792;
-  margin-right: .3rem;
+  margin-right: 0.3rem;
 }
 
-button:disabled,button:active:disabled, button:hover:disabled {
+button:disabled,
+button:active:disabled,
+button:hover:disabled {
   font-style: normal;
   border: solid 1px #cabca7;
   background-color: #f6f2eb;
@@ -51,4 +56,3 @@ button:active {
   border: solid 1px #755443;
   background-color: #b5a792;
 }
-

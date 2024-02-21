@@ -1,5 +1,5 @@
 import { Tape } from "../tape/tape";
-import { LineAndNumber, Move, TMError } from "./constants";
+import { LineAndNumber, Move, TMError, ANY_MATCH } from "./constants";
 import { moveInitializer } from "./move";
 
 export default class TM {
@@ -15,7 +15,7 @@ export default class TM {
     tapeNum: number,
     programString: string,
     setState: (state: string) => void,
-    setSteps: (f: React.SetStateAction<number>) => void
+    setSteps: (f: React.SetStateAction<number>) => void,
   ) {
     this.tapeNum = tapeNum;
     this.setState = setState;
@@ -35,21 +35,12 @@ export default class TM {
     this.errors.push(...res.errors);
   }
 
-  FindMove(state: string, tapeVals: Array<string>) {
-    const moveMatcher = (move: Move) => {
-      if (move.startState != state) return false;
-      const matches = move.tapeMoves.filter(
-        (tapeMove, i) => tapeVals[i] != tapeMove.read
-      );
-      return matches.length == 0;
-    };
-    return this.moves.find(moveMatcher);
-  }
-
   IsMatch = (m: Move, tapes: Array<Tape>, state: string) => {
     if (m.startState != state) return false;
     const matches = m.tapeMoves.filter(
-      (tapeMove, i) => tapes[i].Read() != tapeMove.read
+      (currentTapeMove, i) =>
+        currentTapeMove.read != tapes[i].Read() ||
+        currentTapeMove.read === ANY_MATCH,
     );
     return matches.length == 0;
   };

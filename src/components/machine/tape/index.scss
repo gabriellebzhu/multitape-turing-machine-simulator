@@ -2,19 +2,17 @@
   background-color: #f4efe8;
   display: flex;
   flex-direction: column;
-  margin: .5rem;
-  padding: .5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
   align-items: center;
   border: solid 1px #b5a792;
-  border-radius: .25rem;
-  
+  border-radius: 0.25rem;
+
   &__container {
     display: flex;
     width: 100%;
     flex-direction: column;
   }
-
-
 }
 
 .title {
@@ -28,8 +26,8 @@
 }
 
 .tape-display {
-  padding: .5rem .25rem;
-  font-family: 'Courier New', Courier, monospace;
+  padding: 0.5rem 0.25rem;
+  font-family: "Courier New", Courier, monospace;
 
   &__config {
     display: flex;
@@ -41,14 +39,14 @@
 
   &__visualizer {
     border: solid 1px #b5a792;
-    margin: .5rem 0rem;
-    padding: .3rem;
+    margin: 0.5rem 0rem;
+    padding: 0.3rem;
     overflow-x: scroll;
     overflow-clip-margin: -2px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    
-    &__grid {  
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &__grid {
       display: grid;
       justify-content: center;
       grid-template-columns: minmax(300px, 1fr) min-content minmax(300px, 1fr);
@@ -92,7 +90,7 @@
     }
   }
 
-  &__value{
+  &__value {
     &__container {
       display: flex;
     }
@@ -100,7 +98,7 @@
 }
 
 .add-tapes {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   display: flex;
   flex-direction: row;
   font-size: 14px;
@@ -113,9 +111,9 @@
     align-items: center;
 
     &__label {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
-    
+
     &__input {
       width: 2rem;
       text-align: center;

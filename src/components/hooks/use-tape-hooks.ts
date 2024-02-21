@@ -15,7 +15,7 @@ const useTapes = () => {
       setTapes([...tapes, ...newTapes]);
       setTapeCounter((x) => x + 1);
     },
-    [tapes, setTapes]
+    [tapes, setTapes],
   );
 
   const handleRemoveTape = React.useCallback(
@@ -26,7 +26,7 @@ const useTapes = () => {
       }
       setTapes([...tapes.slice(0, tapeIndex), ...tapes.slice(tapeIndex + 1)]);
     },
-    [tapes, setTapes]
+    [tapes, setTapes],
   );
 
   const resetTapes = React.useCallback(() => {

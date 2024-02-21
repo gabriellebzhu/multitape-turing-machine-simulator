@@ -29,7 +29,7 @@ const usePrograms = (props: Props) => {
           tapes.length,
           programString,
           setMachineState,
-          setSteps
+          setSteps,
         );
         setTM(newTM);
         setPrevProgramString(programString);
@@ -54,7 +54,7 @@ const usePrograms = (props: Props) => {
 
       console.log("running");
     },
-    [tapes, setIsRunning, setTM, tm, prevProgramString, setPrevProgramString]
+    [tapes, setIsRunning, setTM, tm, prevProgramString, setPrevProgramString],
   );
 
   const handleStop = React.useCallback(() => {
@@ -69,7 +69,7 @@ const usePrograms = (props: Props) => {
           tapes.length,
           programString,
           setMachineState,
-          setSteps
+          setSteps,
         );
         setTM(newTM);
         setPrevProgramString(programString);
@@ -96,7 +96,7 @@ const usePrograms = (props: Props) => {
       tm?.Iterate(tapes, machineState);
       setIsStepping(false);
     },
-    [setIsRunning, tm, tapes, machineState]
+    [setIsRunning, tm, tapes, machineState],
   );
 
   return {

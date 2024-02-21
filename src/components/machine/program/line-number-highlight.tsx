@@ -7,7 +7,7 @@ interface LineNumberAndHighlightProps {
 }
 
 const LineNumberAndHighlight: React.FC<LineNumberAndHighlightProps> = (
-  props: LineNumberAndHighlightProps
+  props: LineNumberAndHighlightProps,
 ) => {
   const { lineNo, isCurrentLine, isError } = props;
 

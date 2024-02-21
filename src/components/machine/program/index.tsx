@@ -1,7 +1,7 @@
 import * as React from "react";
 import { isStopState } from "../state/machine-state-helper";
 import LineNumberAndHighlight from "./line-number-highlight";
-import {DEFAULT_PROGRAM_STRING} from "./constants"
+import { DEFAULT_PROGRAM_STRING } from "./constants";
 import TM from "./tm";
 
 interface ProgramComponentProps {
@@ -16,7 +16,7 @@ interface ProgramComponentProps {
 }
 
 const ProgramComponent: React.FC<ProgramComponentProps> = (
-  props: ProgramComponentProps
+  props: ProgramComponentProps,
 ) => {
   const {
     handleStart,
@@ -29,7 +29,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
     tm,
   } = props;
   const [programInput, setProgramInput] = React.useState<string>(
-    DEFAULT_PROGRAM_STRING
+    DEFAULT_PROGRAM_STRING,
   );
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -45,7 +45,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
     (text: string) => {
       setProgramInput(text);
     },
-    [setProgramInput]
+    [setProgramInput],
   );
 
   const handleStartButton = React.useCallback(() => {

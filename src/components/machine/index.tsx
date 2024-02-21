@@ -8,9 +8,8 @@ import StateComponent from "./state";
 import { isStopState } from "./state/machine-state-helper";
 
 const Simulator: React.FC = () => {
-  // const { errorState, setErrors } = useError();
+  // TODO: Refactor the hooks as a provider/wrapper to avoid prop drilling.
   const { tapes, handleAddTape, handleRemoveTape, resetTapes } = useTapes();
-  const machineStates = useMachineStates();
   const {
     steps,
     setSteps,
@@ -19,7 +18,7 @@ const Simulator: React.FC = () => {
     setIsRunning,
     setIsStepping,
     initialState,
-  } = machineStates;
+  } = useMachineStates();
   const { tm, setTM, machineState, handleStart, handleStop, handleStep } =
     useProgram({
       tapes,

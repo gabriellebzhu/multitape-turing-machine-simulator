@@ -12,7 +12,7 @@ interface TapesComponentProps {
 }
 
 const TapesComponent: React.FC<TapesComponentProps> = (
-  props: TapesComponentProps
+  props: TapesComponentProps,
 ) => {
   const {
     tapes,
@@ -35,7 +35,7 @@ const TapesComponent: React.FC<TapesComponentProps> = (
       handleRemoveTape(index);
       handleReset();
     },
-    [handleRemoveTape, handleReset]
+    [handleRemoveTape, handleReset],
   );
 
   const handleSetTapeNumber = React.useCallback(() => {

@@ -1,15 +1,15 @@
 .state__container {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: .5rem;
-  padding: .5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
 }
 
 .state-error {
   background-color: rgb(173, 72, 56);
   color: white;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   font-style: italic;
 }

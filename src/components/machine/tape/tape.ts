@@ -1,8 +1,11 @@
 import { DIRECTION, BLANK, ANY, BLANK_INPUT } from "./constants";
 
 export class Tape {
+  // Copy of the original tape string so the tape can be reset.
   originalTape: string;
+  // The current (possibly changed) value of the tape.
   tapeVal: Array<string>;
+  // Position of the head on this tape.
   pos: number;
   tapeName: string;
 

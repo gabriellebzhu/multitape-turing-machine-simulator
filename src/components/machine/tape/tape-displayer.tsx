@@ -20,7 +20,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
       if (isDisabled) return;
       setTapeText(s);
     },
-    [tape, setTapeText, isDisabled]
+    [tape, setTapeText, isDisabled],
   );
 
   const handleSetTapeString = React.useCallback(() => {
@@ -37,7 +37,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
 
   const [firstHalf, head, secondHalf] = React.useMemo(
     () => tape.GetSegmentedVal(),
-    [tape, tape.pos, tape.tapeVal.length, tape.originalTape]
+    [tape, tape.pos, tape.tapeVal.length, tape.originalTape],
   );
 
   React.useEffect(() => {
