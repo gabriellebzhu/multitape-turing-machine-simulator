@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Tape } from "./tape";
-import { DEFAULT_TAPE_VAL } from "./constants";
+import { HEAD_MARKER, DEFAULT_TAPE_VAL } from "./constants";
 
 interface TapeDisplayerProps {
   tape: Tape;
@@ -23,7 +23,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
     [tape, setTapeText, isDisabled]
   );
 
-  const x = React.useCallback(() => {
+  const handleSetTapeString = React.useCallback(() => {
     if (isDisabled) return;
     if (tapeText.includes("*")) return;
     if (tapeText.includes(";")) return;
@@ -36,7 +36,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
   }, [isDisabled, handleRemoveTape, index]);
 
   const [firstHalf, head, secondHalf] = React.useMemo(
-    () => tape.getSegmentedVal(),
+    () => tape.GetSegmentedVal(),
     [tape, tape.pos, tape.tapeVal.length, tape.originalTape]
   );
 
@@ -46,7 +46,7 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
 
   React.useEffect(() => {
     if (shouldSet) {
-      tape.setVal(tapeText);
+      tape.SetVal(tapeText);
       handleReset();
       setShouldSet(false);
     }
@@ -62,18 +62,18 @@ export const TapeDisplayer = (props: TapeDisplayerProps) => {
             disabled={isDisabled}
             value={tapeText}
           />
-          <button disabled={isDisabled} onClick={x}>
-            set
+          <button disabled={isDisabled} onClick={handleSetTapeString}>
+            Set String
           </button>
           <button disabled={isDisabled} onClick={handleRemoveTapeBtn}>
-            remove
+            Remove
           </button>
           <div className="remove-tape"></div>
         </div>
       </div>
       <div className="tape-display__visualizer">
         <div className="tape-display__visualizer__grid">
-          <div className="tape-display__visualizer__marker">{"\u25BC"}</div>
+          <div className="tape-display__visualizer__marker">{HEAD_MARKER}</div>
           <div className="tape-display__visualizer__first">{firstHalf}</div>
           <div className="tape-display__visualizer__head">{head}</div>
           <div className="tape-display__visualizer__second">{secondHalf}</div>

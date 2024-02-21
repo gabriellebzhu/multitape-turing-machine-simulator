@@ -22,44 +22,46 @@ export default class TM {
     this.setSteps = setSteps;
     this.step = 0;
     this.errors = [];
+
     if (tapeNum == 0) {
       this.errors.push({ lineNo: -1, errMsg: "No tapes" });
-    } else {
-      const { parseMoves } = moveInitializer({ tapeNum });
-      const res = parseMoves(programString);
-      this.lines = res.commentlessLines;
-      this.moves = res.moves;
-      this.errors.push(...res.errors);
+      return;
     }
+
+    const { parseMoves } = moveInitializer(tapeNum);
+    const res = parseMoves(programString);
+    this.lines = res.commentlessLines;
+    this.moves = res.moves;
+    this.errors.push(...res.errors);
   }
 
-  findMove(state: string, tapeVals: Array<string>) {
-    return this.moves.find((m) => {
-      if (m.startState != state) return false;
-      const matches = m.tapeMoves.filter(
+  FindMove(state: string, tapeVals: Array<string>) {
+    const moveMatcher = (move: Move) => {
+      if (move.startState != state) return false;
+      const matches = move.tapeMoves.filter(
         (tapeMove, i) => tapeVals[i] != tapeMove.read
       );
       return matches.length == 0;
-    });
+    };
+    return this.moves.find(moveMatcher);
   }
 
-  isMatch = (m: Move, tapes: Array<Tape>, state: string) => {
+  IsMatch = (m: Move, tapes: Array<Tape>, state: string) => {
     if (m.startState != state) return false;
-
     const matches = m.tapeMoves.filter(
-      (tapeMove, i) => tapes[i].read() != tapeMove.read
+      (tapeMove, i) => tapes[i].Read() != tapeMove.read
     );
     return matches.length == 0;
   };
 
-  iterate = (tapes: Array<Tape>, state: string): string => {
-    const matchedMove = this.moves.find((m) => this.isMatch(m, tapes, state));
+  Iterate = (tapes: Array<Tape>, state: string): string => {
+    const matchedMove = this.moves.find((m) => this.IsMatch(m, tapes, state));
 
     if (matchedMove == null) {
       this.errors.push({
         lineNo: -1,
         errMsg: `No instruction found for state: ${state} ${tapes
-          .map((t, i) => `${i}: ${t.read()}`)
+          .map((t, i) => `${i}: ${t.Read()}`)
           .join(", ")}`,
       });
       this.setState("halt");
@@ -67,8 +69,8 @@ export default class TM {
     }
 
     tapes.forEach((t, i) => {
-      t.write(matchedMove.tapeMoves[i].write);
-      t.move(matchedMove.tapeMoves[i].dir);
+      t.Write(matchedMove.tapeMoves[i].write);
+      t.Move(matchedMove.tapeMoves[i].dir);
     });
 
     this.setSteps((x) => x + 1);

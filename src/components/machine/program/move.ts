@@ -1,6 +1,11 @@
 import { DIRECTION } from "../tape/constants";
 import { LineAndNumber, TMError, SingleTapeMove, Move } from "./constants";
 
+interface ParsedDirection {
+  error: boolean;
+  dir: DIRECTION | null;
+}
+
 const validateLineLength = (l: LineAndNumber, expctedArgs: number): TMError => {
   const i = l.lineNo;
   if (l.line.length == 1 && l.line[0].length == 0)
@@ -9,30 +14,38 @@ const validateLineLength = (l: LineAndNumber, expctedArgs: number): TMError => {
   return { lineNo: i, errMsg: `Expected ${expctedArgs} args` };
 };
 
-export const moveInitializer = (props: { tapeNum: number }) => {
-  const { tapeNum } = props;
+/**
+ * Parses and normalizes the move direction in an instruction.
+ * @param directionString The string expected to contain the direction
+ * @returns a `ParsedDirection` with whether any errors occur in the
+ *          formatting of the direction string.
+ */
+const parseDirection = (directionString: string): ParsedDirection => {
+  if (directionString.toLowerCase() === "r" || directionString === ">") {
+    return { error: false, dir: DIRECTION.RIGHT };
+  }
+
+  if (directionString.toLowerCase() === "l" || directionString === "<") {
+    return { error: false, dir: DIRECTION.LEFT };
+  }
+
+  if (directionString === "*") return { error: false, dir: DIRECTION.STAY };
+
+  return { error: true, dir: null };
+};
+
+
+/**
+ * Sets up and returns a function that parses a program string into an 
+ * array of moves, the program string with all comments removed (as an array)
+ * of lines, and any errors that have occured while parsing the string.
+ * @param tapeNum number of tapes expected.
+ * @returns the `parseMoves` function
+ */
+export const moveInitializer = (tapeNum: number) => {
   const argNum = tapeNum * 3 + 2;
   const errors: Array<TMError> = [];
-
-  const parseDirection = (
-    directionString: string
-  ): {
-    error: boolean;
-    dir: DIRECTION | null;
-  } => {
-    if (directionString.toLowerCase() === "r" || directionString === ">") {
-      return { error: false, dir: DIRECTION.RIGHT };
-    }
-
-    if (directionString.toLowerCase() === "l" || directionString === "<") {
-      return { error: false, dir: DIRECTION.LEFT };
-    }
-
-    if (directionString === "*") return { error: false, dir: DIRECTION.STAY };
-
-    return { error: true, dir: null };
-  };
-
+ 
   const extractMovesFromLine = (l: LineAndNumber): Move => {
     const tapeMoves: Array<SingleTapeMove> = [];
 
@@ -43,6 +56,7 @@ export const moveInitializer = (props: { tapeNum: number }) => {
           lineNo: l.lineNo,
           errMsg: `Invalid direction for tape ${i}`,
         });
+
         return {
           lineNo: l.lineNo,
           startState: "",

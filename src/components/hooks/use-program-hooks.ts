@@ -81,7 +81,7 @@ const usePrograms = (props: Props) => {
           return;
         }
         setIsStepping(true);
-        newTM?.iterate(tapes, machineState);
+        newTM?.Iterate(tapes, machineState);
         setIsStepping(false);
         return;
       }
@@ -93,7 +93,7 @@ const usePrograms = (props: Props) => {
         return;
       }
       setIsStepping(true);
-      tm?.iterate(tapes, machineState);
+      tm?.Iterate(tapes, machineState);
       setIsStepping(false);
     },
     [setIsRunning, tm, tapes, machineState]

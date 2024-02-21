@@ -13,25 +13,25 @@ export class Tape {
     this.tapeName = tapeName;
   }
 
-  reset() {
+  Reset() {
     this.tapeVal = this.originalTape.split("");
     this.pos = 0;
   }
 
-  move(dir: DIRECTION): void {
+  Move(dir: DIRECTION): void {
     switch (dir) {
       case DIRECTION.STAY:
         break;
       case DIRECTION.LEFT:
-        this.move_left();
+        this.MoveLeft();
         break;
       case DIRECTION.RIGHT:
-        this.move_right();
+        this.MoveRight();
         break;
     }
   }
 
-  move_left(): void {
+  MoveLeft(): void {
     this.pos -= 1;
     if (this.pos < 0) {
       this.pos = 0;
@@ -39,31 +39,33 @@ export class Tape {
     }
   }
 
-  move_right(): void {
+  MoveRight(): void {
     this.pos += 1;
     if (this.pos >= this.tapeVal.length) {
       this.tapeVal.push(BLANK);
     }
   }
 
-  read(): string {
+  Read(): string {
     if (this.tapeVal[this.pos] === BLANK) return BLANK_INPUT;
     return this.tapeVal[this.pos];
   }
 
-  write(symbol: string): void {
+  Write(symbol: string): void {
     if (symbol == ANY) return;
     if (symbol === BLANK_INPUT) symbol = BLANK;
 
     this.tapeVal[this.pos] = symbol;
   }
 
-  setVal(inputString: string) {
+  SetVal(inputString: string) {
     this.originalTape = inputString;
     this.tapeVal = inputString.split("");
   }
 
-  getSegmentedVal() {
+  // Split the tape into three sections: the segment before the current head loc,
+  // the current loc of the head, and the segment after the current head loc.
+  GetSegmentedVal() {
     const first = this.tapeVal.slice(0, this.pos);
     const second = this.tapeVal.slice(this.pos + 1);
 

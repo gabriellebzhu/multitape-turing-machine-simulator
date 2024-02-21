@@ -31,7 +31,7 @@ const useTapes = () => {
 
   const resetTapes = React.useCallback(() => {
     tapes.forEach((t) => {
-      t.reset();
+      t.Reset();
     });
   }, [tapes]);
 

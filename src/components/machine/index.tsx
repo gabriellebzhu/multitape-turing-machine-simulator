@@ -42,7 +42,7 @@ const Simulator: React.FC = () => {
     if (isStopState(machineState)) setIsRunning(false);
 
     if (isRunning) {
-      const interval = setInterval(tm.iterate, 1000, tapes, machineState);
+      const interval = setInterval(tm.Iterate, 1000, tapes, machineState);
       setIntervalID(interval);
       return () => clearInterval(interval);
     }
