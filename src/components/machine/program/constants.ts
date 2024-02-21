@@ -1,6 +1,7 @@
 import { DIRECTION } from "../tape/constants";
 
 export const DEFAULT_INIT_STATE = "0";
+export const DEFAULT_PROGRAM_STRING = "0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"
 
 export interface SingleTapeMove {
   read: string;

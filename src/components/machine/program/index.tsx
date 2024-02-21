@@ -1,6 +1,7 @@
 import * as React from "react";
 import { isStopState } from "../state/machine-state-helper";
 import LineNumberAndHighlight from "./line-number-highlight";
+import {DEFAULT_PROGRAM_STRING} from "./constants"
 import TM from "./tm";
 
 interface ProgramComponentProps {
@@ -28,7 +29,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
     tm,
   } = props;
   const [programInput, setProgramInput] = React.useState<string>(
-    "0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"
+    DEFAULT_PROGRAM_STRING
   );
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -90,7 +91,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
           <textarea
             onChange={(e) => handleTextChange(e.target.value)}
             ref={textareaRef}
-            defaultValue={"0 1 1 0 0 r r 0\n0 0 0 0 0 r r halt-accept"}
+            defaultValue={DEFAULT_PROGRAM_STRING}
           />
         </div>
         <div className="program-input__controller">
