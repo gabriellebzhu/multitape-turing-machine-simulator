@@ -1,4 +1,5 @@
 @use "src/styles/colour.scss" as *;
+
 .state__container {
   font-family: "Courier New", Courier, monospace;
   display: flex;
@@ -7,18 +8,30 @@
   padding: 0.5rem;
 }
 
-.state-error__container {
-  display: flex;
+
+.state-error {
   margin: 0 2rem;
-}
 
-.state-error__line-no {
-  font-style: italic;
-  background: $red-error;
-  padding: 0 0.7rem;
-  color: white;
-}
+  &__primary{
+    display: flex;
+    &__line-no {
+      font-style: italic;
+      background: $red-error;
+      padding: 0 0.7rem;
+      color: white;
+    }
 
-.state-error__msg {
-  padding: 0 0.7rem;
+    &__msg {
+      padding: 0 0.7rem;
+    }
+  }
+
+  &__additional {
+    width: 100%;
+    text-align: end;
+    font-size: smaller;
+    font-style: italic;
+    font-weight: 600;
+    color: $faded-text;
+  }
 }

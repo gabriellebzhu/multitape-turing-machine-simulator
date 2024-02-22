@@ -17,12 +17,13 @@ const StateComponent: React.FC<StateComponentProps> = (
     <div className="state__container">
       <div className="state-display">State: {state}</div>
       <div>
+        <div className="state-error">
         {errors?.length > 0 ? (
-          <div className="state-error__container">
-            <div className="state-error__line-no">
+          <div className="state-error__primary">
+            <div className="state-error__primary__line-no">
               {errors[0].lineNo >= 0 ? `Error on line ${errors[0].lineNo}` : "Error"}
             </div>
-            <div className="state-error__msg">
+            <div className="state-error__primary__msg">
               {errors[0].errMsg}
             </div>
           </div>
@@ -32,6 +33,7 @@ const StateComponent: React.FC<StateComponentProps> = (
             + {errors?.length - 1} other error
           </div>
         ): null}
+        </div>
       </div>
       <div className="state-step-display">Steps: {steps}</div>
     </div>

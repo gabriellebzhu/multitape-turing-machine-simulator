@@ -1,3 +1,4 @@
+@use "src/styles/colour.scss" as *;
 @import "./tape/index.scss";
 @import "./state/index.scss";
 @import "./program/index.scss";
@@ -9,7 +10,7 @@
 }
 
 .tape-state__container {
-  border: 1px solid #b5a792;
+  border: 1px solid $border;
   margin: 0.5rem;
   border-radius: .25rem;
 }
