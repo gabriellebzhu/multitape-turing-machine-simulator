@@ -10,7 +10,7 @@ export default class TM {
   errors: Array<TMError>;
   setState: (state: string) => void;
   setSteps: (f: React.SetStateAction<number>) => void;
-  matchedLine: number;
+  matchedLine: number | null;
 
   constructor(
     tapeNum: number,
@@ -22,6 +22,7 @@ export default class TM {
     this.setState = setState;
     this.setSteps = setSteps;
     this.step = 0;
+    this.matchedLine = null;
     this.errors = [];
 
     if (tapeNum == 0) {

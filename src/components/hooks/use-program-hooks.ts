@@ -29,37 +29,24 @@ const usePrograms = (props: Props) => {
           tapes.length,
           programString,
           setMachineState,
-          setSteps,
+          setSteps
         );
         setTM(newTM);
         setPrevProgramString(programString);
         setPrevTapeNum(tapes.length);
 
-        if (newTM.errors.length > 0) {
-          setIsRunning(false);
-          console.log(newTM.errors);
-          return;
-        }
-        setIsRunning(true);
+        newTM.errors.length > 0 ? setIsRunning(false) : setIsRunning(true);
         return;
       }
 
       if (!tm) return;
-      if (tm.errors.length > 0) {
-        setIsRunning(false);
-        console.log(tm.errors);
-        return;
-      }
-      setIsRunning(true);
-
-      console.log("running");
+      tm.errors.length > 0 ? setIsRunning(false) : setIsRunning(true);
     },
-    [tapes, setIsRunning, setTM, tm, prevProgramString, setPrevProgramString],
+    [tapes, setIsRunning, setTM, tm, prevProgramString, setPrevProgramString]
   );
 
   const handleStop = React.useCallback(() => {
     setIsRunning(false);
-    console.log("stopping");
   }, [setIsRunning]);
 
   const handleStep = React.useCallback(
@@ -69,7 +56,7 @@ const usePrograms = (props: Props) => {
           tapes.length,
           programString,
           setMachineState,
-          setSteps,
+          setSteps
         );
         setTM(newTM);
         setPrevProgramString(programString);
@@ -77,7 +64,6 @@ const usePrograms = (props: Props) => {
 
         if (newTM.errors.length > 0) {
           setIsRunning(false);
-          console.log(newTM.errors);
           return;
         }
         setIsStepping(true);
@@ -96,7 +82,7 @@ const usePrograms = (props: Props) => {
       tm?.Iterate(tapes, machineState);
       setIsStepping(false);
     },
-    [setIsRunning, tm, tapes, machineState],
+    [setIsRunning, tm, tapes, machineState]
   );
 
   return {

@@ -20,21 +20,34 @@
     flex-direction: column;
   }
 
+  &__last-instr {
+    font-family: monospace;
+    margin: .5rem 0;  
+  }
+
   &__source-container {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    overflow-y: scroll;
+    flex-direction: column;
     height: 60vh;
     position: relative;
     margin-right: 1rem;
   }
 
-  &__source-container:focus-within {
+
+  &__source-code {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+
+  }
+
+  &__source-code:focus-within {
     outline: #87b8e3 solid 2px;
   }
 
-  &__source-container > textarea {
+  &__source-code > textarea {
     border: none;
     border-radius: 0;
     resize: none;
@@ -46,7 +59,7 @@
     z-index: 0;
   }
 
-  &__source-container > textarea:focus {
+  &__source-code > textarea:focus {
     outline: none;
   }
 
@@ -87,4 +100,5 @@
     z-index: 1;
     position: absolute;
   }
+
 }

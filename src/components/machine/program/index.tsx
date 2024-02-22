@@ -78,21 +78,26 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
       </div>
       <div className="program-input__container">
         <div className="program-input__source-container">
-          <div className="program-input__line-numbers">
-            {lineNoInfo.map((v) => (
-              <LineNumberAndHighlight
+          <div className="program-input__last-instr">
+            Last used instruction: {tm?.matchedLine >= 0 ? tm?.matchedLine : "None"}
+          </div>
+          <div className="program-input__source-code">
+            <div className="program-input__line-numbers">
+              {lineNoInfo.map((v) => (
+                <LineNumberAndHighlight
                 lineNo={v.lineNo}
                 isCurrentLine={v.isCurrentLine}
                 isError={v.isError}
-              />
-            ))}
-          </div>
+                />
+                ))}
+            </div>
 
-          <textarea
-            onChange={(e) => handleTextChange(e.target.value)}
-            ref={textareaRef}
-            defaultValue={DEFAULT_PROGRAM_STRING}
-          />
+            <textarea
+              onChange={(e) => handleTextChange(e.target.value)}
+              ref={textareaRef}
+              defaultValue={DEFAULT_PROGRAM_STRING}
+              />
+          </div>
         </div>
         <div className="program-input__controller">
           <button disabled={startStepIsDisabled} onClick={handleStartButton}>
