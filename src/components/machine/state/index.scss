@@ -7,9 +7,18 @@
   padding: 0.5rem;
 }
 
-.state-error {
-  background-color: rgb(173, 72, 56);
-  color: white;
-  padding: 0 0.5rem;
+.state-error__container {
+  border: rgb(173, 72, 56) 2px solid;
   font-style: italic;
+  display: flex;
+}
+
+.state-error__line-no {
+  background: rgb(173, 72, 56);
+  padding: 0 0.7rem;
+  color: white;
+}
+
+.state-error__msg {
+  padding: 0 0.7rem;
 }

@@ -12,21 +12,26 @@ const StateComponent: React.FC<StateComponentProps> = (
   props: StateComponentProps,
 ) => {
   const { state, steps, errors } = props;
-  const hasUnLinedError = errors?.length && errors[0].lineNo < 0;
-  const hasLinedError = errors?.length && errors[0].lineNo >= 0;
 
   return (
     <div className="state__container">
       <div className="state-display">State: {state}</div>
       <div>
-        {hasUnLinedError ? (
-          <div className="state-error">Error: {errors[0].errMsg}</div>
-        ) : null}
-        {hasLinedError ? (
-          <div className="state-error">
-            Error on line {errors[0].lineNo}: {errors[0].errMsg}
+        {errors?.length > 0 ? (
+          <div className="state-error__container">
+            <div className="state-error__line-no">
+              {errors[0].lineNo >= 0 ? `Error on line ${errors[0].lineNo}` : "Error"}
+            </div>
+            <div className="state-error__msg">
+              {errors[0].errMsg}
+            </div>
           </div>
         ) : null}
+        {errors?.length > 1 ? (
+          <div className="state-error__additional">
+            + {errors?.length - 1} other error
+          </div>
+        ): null}
       </div>
       <div className="state-step-display">Steps: {steps}</div>
     </div>
