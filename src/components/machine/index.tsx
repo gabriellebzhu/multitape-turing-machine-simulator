@@ -52,20 +52,22 @@ const Simulator: React.FC = () => {
   return (
     <div className="simulator">
       <h1>Multitape Turing Simulator</h1>
-      <TapesComponent
-        tapes={tapes}
-        handleAddTape={handleAddTape}
-        handleRemoveTape={handleRemoveTape}
-        isRunning={isRunning}
-        isStepping={isStepping}
-        handleReset={handleReset}
-      />
-      <StateComponent
-        state={machineState}
-        isRunning={isRunning}
-        steps={steps}
-        errors={tm?.errors}
-      />
+      <div className="tape-state__container">
+        <TapesComponent
+          tapes={tapes}
+          handleAddTape={handleAddTape}
+          handleRemoveTape={handleRemoveTape}
+          isRunning={isRunning}
+          isStepping={isStepping}
+          handleReset={handleReset}
+        />
+        <StateComponent
+          state={machineState}
+          isRunning={isRunning}
+          steps={steps}
+          errors={tm?.errors}
+          />
+      </div>
       <ProgramComponent
         handleStart={handleStart}
         handleStop={handleStop}

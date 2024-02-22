@@ -1,20 +1,20 @@
+@use "src/styles/colour.scss" as *;
 .state__container {
   font-family: "Courier New", Courier, monospace;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0.5rem;
   padding: 0.5rem;
 }
 
 .state-error__container {
-  border: rgb(173, 72, 56) 2px solid;
-  font-style: italic;
   display: flex;
+  margin: 0 2rem;
 }
 
 .state-error__line-no {
-  background: rgb(173, 72, 56);
+  font-style: italic;
+  background: $red-error;
   padding: 0 0.7rem;
   color: white;
 }
