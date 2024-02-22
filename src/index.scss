@@ -1,3 +1,5 @@
+@use "./styles/colour.scss" as *;
+
 @import "./components/machine/index.scss";
 
 h1 {
@@ -14,7 +16,7 @@ input {
   font-family: "Courier New", Courier, monospace;
   border: none;
   padding: 0.2rem;
-  border-bottom: solid 1px #b5a792;
+  border-bottom: solid 1px $border;
   transition:
     border-bottom 0.2s ease-in-out,
     background-color 0.2s ease-in-out;
@@ -32,8 +34,8 @@ input:focus {
 
 button {
   font-family: "Courier New", Courier, monospace;
-  background-color: #e9e0d3;
-  border: solid 1px #b5a792;
+  background-color: $beige-background;
+  border: solid 1px $border;
   margin-right: 0.3rem;
 }
 
@@ -41,7 +43,7 @@ button:disabled,
 button:active:disabled,
 button:hover:disabled {
   font-style: normal;
-  border: solid 1px #cabca7;
+  border: solid 1px $border;
   background-color: #f6f2eb;
 }
 
@@ -54,5 +56,5 @@ button:hover {
 button:active {
   font-style: italic;
   border: solid 1px #755443;
-  background-color: #b5a792;
+  background-color: $active-button;
 }
