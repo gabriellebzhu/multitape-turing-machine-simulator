@@ -60,7 +60,9 @@ export default class TM {
     }
 
     tapes.forEach((t, i) => {
-      t.Write(matchedMove.tapeMoves[i].write);
+      if (matchedMove.tapeMoves[i].write !== ANY_MATCH) {
+        t.Write(matchedMove.tapeMoves[i].write);
+      }
       t.Move(matchedMove.tapeMoves[i].dir);
     });
 
