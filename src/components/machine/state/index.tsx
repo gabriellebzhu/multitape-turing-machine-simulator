@@ -13,6 +13,9 @@ const StateComponent: React.FC<StateComponentProps> = (
 ) => {
   const { state, steps, errors } = props;
 
+  const additionalErrorMsg =
+      `+ ${errors?.length - 1} other error${errors?.length - 1 > 1 ? "s" : ""}`;
+
   return (
     <div className="state__container">
       <div className="state-display">State: {state}</div>
@@ -30,7 +33,7 @@ const StateComponent: React.FC<StateComponentProps> = (
         ) : null}
         {errors?.length > 1 ? (
           <div className="state-error__additional">
-            + {errors?.length - 1} other error
+            {additionalErrorMsg}
           </div>
         ): null}
         </div>
