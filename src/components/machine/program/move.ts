@@ -1,5 +1,11 @@
 import { DIRECTION } from "../tape/constants";
-import { LineAndNumber, TMError, SingleTapeMove, Move } from "./constants";
+import {
+  LineAndNumber,
+  TMError,
+  SingleTapeMove,
+  Move,
+  ANY_MATCH,
+} from "./constants";
 
 interface ParsedDirection {
   error: boolean;
@@ -58,6 +64,7 @@ export const moveInitializer = (tapeNum: number) => {
 
         return {
           lineNo: l.lineNo,
+          anyMatchNumber: 0,
           startState: "",
           endState: "",
           tapeMoves: [],
@@ -70,8 +77,13 @@ export const moveInitializer = (tapeNum: number) => {
         dir: dirRes.dir,
       });
     }
+
+    // Find all tape moves that allow any symbol to be read.
+    const anyMatchMoves = tapeMoves.filter((move) => move.read === ANY_MATCH);
+
     return {
       lineNo: l.lineNo,
+      anyMatchNumber: anyMatchMoves.length,
       startState: l.line[0],
       endState: l.line[argNum - 1],
       tapeMoves,
@@ -82,26 +94,27 @@ export const moveInitializer = (tapeNum: number) => {
     const lines = programString.split("\n");
     const commentlessLines: Array<LineAndNumber> = lines.map((l, i) => {
       const line = l.split(";")[0].trimEnd();
-      return { lineNo: i, line: line.split(" ") };
+      return { lineNo: i, line: line.split(/\s+/) };
     });
 
     errors.push(
       ...commentlessLines
         .map((l) => validateLineLength(l, argNum))
-        .filter((err) => err.errMsg.length > 0),
+        .filter((err) => err.errMsg.length > 0)
     );
 
     const filteredLines = commentlessLines.filter(
-      (l) => l.line.length == argNum,
+      (l) => l.line.length == argNum
     );
 
-    const moves = filteredLines
+    const filteredAndSortedMoves = filteredLines
       .map(extractMovesFromLine)
-      .filter((m) => m.tapeMoves.length > 0);
+      .filter((m) => m.tapeMoves.length > 0)
+      .sort((move1, move2) => move1.anyMatchNumber - move2.anyMatchNumber);
 
     return {
       commentlessLines,
-      moves,
+      moves: filteredAndSortedMoves,
       errors,
     };
   };

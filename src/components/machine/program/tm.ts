@@ -15,7 +15,7 @@ export default class TM {
     tapeNum: number,
     programString: string,
     setState: (state: string) => void,
-    setSteps: (f: React.SetStateAction<number>) => void,
+    setSteps: (f: React.SetStateAction<number>) => void
   ) {
     this.tapeNum = tapeNum;
     this.setState = setState;
@@ -39,10 +39,10 @@ export default class TM {
     if (m.startState != state) return false;
     const matches = m.tapeMoves.filter(
       (currentTapeMove, i) =>
-        currentTapeMove.read != tapes[i].Read() ||
-        currentTapeMove.read === ANY_MATCH,
+        currentTapeMove.read === tapes[i].Read() ||
+        currentTapeMove.read === ANY_MATCH
     );
-    return matches.length == 0;
+    return matches.length == this.tapeNum;
   };
 
   Iterate = (tapes: Array<Tape>, state: string): string => {
