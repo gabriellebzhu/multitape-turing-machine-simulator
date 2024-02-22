@@ -35,7 +35,7 @@ const ProgramComponent: React.FC<ProgramComponentProps> = (
 
   const lineNoInfo = programInput.split("\n").map((_, i) => {
     const isError = !!tm?.errors.find((v) => v.lineNo == i);
-    return { lineNo: i, isCurrentLine: false, isError };
+    return { lineNo: i, isCurrentLine: tm?.matchedLine == i, isError };
   });
 
   const startStepIsDisabled =

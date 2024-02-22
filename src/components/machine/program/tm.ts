@@ -10,6 +10,7 @@ export default class TM {
   errors: Array<TMError>;
   setState: (state: string) => void;
   setSteps: (f: React.SetStateAction<number>) => void;
+  matchedLine: number;
 
   constructor(
     tapeNum: number,
@@ -66,6 +67,7 @@ export default class TM {
       t.Move(matchedMove.tapeMoves[i].dir);
     });
 
+    this.matchedLine = matchedMove.lineNo;
     this.setSteps((x) => x + 1);
     this.setState(matchedMove.endState);
     return matchedMove.endState;
