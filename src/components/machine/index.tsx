@@ -1,6 +1,6 @@
 import * as React from "react";
 import TapesComponent from "./tape";
-import ProgramComponent from "./program";
+import ProgramComponent from "./program/program-component";
 import useTapes from "../hooks/use-tape-hooks";
 import useProgram from "../hooks/use-program-hooks";
 import useMachineStates from "../hooks/use-machine-state-hooks";
