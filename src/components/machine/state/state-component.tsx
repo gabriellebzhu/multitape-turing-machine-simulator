@@ -24,7 +24,7 @@ const StateComponent: React.FC<StateComponentProps> = (
         {errors?.length > 0 ? (
           <div className="state-error__primary">
             <div className="state-error__primary__line-no">
-              {errors[0] != null ? `Error on line ${errors[0].lineNo}` : "Error"}
+              {errors[0].lineNo != null ? `Error on line ${errors[0].lineNo}` : "Error"}
             </div>
             <div className="state-error__primary__msg">
               {errors[0].errMsg}

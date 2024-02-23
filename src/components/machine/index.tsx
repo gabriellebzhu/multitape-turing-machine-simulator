@@ -51,7 +51,7 @@ const Simulator: React.FC = () => {
 
   return (
     <div className="simulator">
-      <h1>Multitape Turing Simulator</h1>
+      <h1>Multitape Turing Machine Simulator</h1>
       <div className="tape-state__container">
         <TapesComponent
           tapes={tapes}
