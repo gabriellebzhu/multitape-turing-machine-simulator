@@ -48,6 +48,10 @@ export default class TM {
   };
 
   Iterate = (tapes: Array<Tape>, state: string): string => {
+    // The first matching move is returned. Since the moves are sorted on how
+    // many "*"s they have, this is guaranteed to return the move with highest
+    // specificity first. Note that this implementation does not support
+    // Non-deterministic TMs.
     const matchedMove = this.moves.find((m) => this.IsMatch(m, tapes, state));
 
     if (matchedMove == null) {

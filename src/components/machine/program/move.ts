@@ -12,6 +12,12 @@ interface ParsedDirection {
   dir: DIRECTION | null;
 }
 
+interface ParsedMovesWithErrors {
+  commentlessLines: Array<LineAndNumber>;
+  moves: Array<Move>;
+  errors: Array<TMError>;
+}
+
 const validateLineLength = (l: LineAndNumber, expctedArgs: number): TMError => {
   const i = l.lineNo;
   if (l.line.length == 1 && l.line[0].length == 0)
@@ -55,11 +61,12 @@ export const moveInitializer = (tapeNum: number) => {
     const tapeMoves: Array<SingleTapeMove> = [];
 
     for (let i = 0; i < tapeNum; i++) {
-      const dirRes = parseDirection(l.line[i + tapeNum * 2 + 1]);
+      const directionString = l.line[i + tapeNum * 2 + 1];
+      const dirRes = parseDirection(directionString);
       if (dirRes.error) {
         errors.push({
           lineNo: l.lineNo,
-          errMsg: `Invalid direction for tape ${i}`,
+          errMsg: `'${directionString}' is an invalid direction for tape ${i}`,
         });
 
         return {
@@ -90,7 +97,15 @@ export const moveInitializer = (tapeNum: number) => {
     };
   };
 
-  const parseMoves = (programString: string) => {
+  const parseMoves = (programString: string): ParsedMovesWithErrors => {
+    if (tapeNum <= 0) {
+      return {
+        commentlessLines: [],
+        moves: [],
+        errors: [],
+      };
+    }
+
     const lines = programString.split("\n");
     const commentlessLines: Array<LineAndNumber> = lines.map((l, i) => {
       const line = l.split(";")[0].trimEnd();
