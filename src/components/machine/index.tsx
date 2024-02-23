@@ -4,7 +4,7 @@ import ProgramComponent from "./program";
 import useTapes from "../hooks/use-tape-hooks";
 import useProgram from "../hooks/use-program-hooks";
 import useMachineStates from "../hooks/use-machine-state-hooks";
-import StateComponent from "./state";
+import StateComponent from "./state/state-component";
 import { isStopState } from "./state/machine-state-helper";
 
 const Simulator: React.FC = () => {
@@ -66,7 +66,7 @@ const Simulator: React.FC = () => {
           isRunning={isRunning}
           steps={steps}
           errors={tm?.errors}
-          />
+        />
       </div>
       <ProgramComponent
         handleStart={handleStart}

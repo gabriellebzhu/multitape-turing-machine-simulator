@@ -26,7 +26,7 @@ export default class TM {
     this.errors = [];
 
     if (tapeNum == 0) {
-      this.errors.push({ lineNo: -1, errMsg: "No tapes" });
+      this.errors.push({ lineNo: null, errMsg: "No tapes" });
       return;
     }
 
@@ -52,7 +52,7 @@ export default class TM {
 
     if (matchedMove == null) {
       this.errors.push({
-        lineNo: -1,
+        lineNo: null,
         errMsg: `No instruction found for state: ${state} ${tapes
           .map((t, i) => `${i}: ${t.Read()}`)
           .join(", ")}`,

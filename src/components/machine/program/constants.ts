@@ -31,7 +31,7 @@ export interface Move {
 }
 
 export interface TMError {
-  lineNo: number;
+  lineNo: number | null;
   errMsg: string;
 }
 
