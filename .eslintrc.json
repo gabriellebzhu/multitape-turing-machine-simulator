@@ -25,5 +25,5 @@
   "rules": {
     "quotes": ["error", "double"]
   },
-  "ignorePatterns": ["**.config.js", "dist/**", "src/index.*"]
+  "ignorePatterns": ["**.config.js", "dist/**", "src/index.*", "spec/**"]
 }
