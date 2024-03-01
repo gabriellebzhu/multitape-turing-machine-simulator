@@ -11,13 +11,15 @@ export class Tape {
 
   constructor(inputString: string = "01110011", tapeName: string = "0") {
     this.originalTape = inputString;
-    this.tapeVal = inputString.split("");
-    this.pos = 0;
+    this.Reset();
     this.tapeName = tapeName;
   }
 
   Reset() {
     this.tapeVal = this.originalTape.split("");
+    if (this.tapeVal.length == 0) {
+      this.tapeVal.push(BLANK);
+    }
     this.pos = 0;
   }
 

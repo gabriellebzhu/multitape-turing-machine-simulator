@@ -57,8 +57,8 @@ export default class TM {
     if (matchedMove == null) {
       this.errors.push({
         lineNo: null,
-        errMsg: `No instruction found for state: ${state} ${tapes
-          .map((t, i) => `${i}: ${t.Read()}`)
+        errMsg: `No instruction found for state: ${state} with ${tapes
+          .map((t, i) => `tape ${i} value of ${t.Read()}`)
           .join(", ")}`,
       });
       this.setState("halt");
