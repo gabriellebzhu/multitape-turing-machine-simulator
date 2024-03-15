@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simulates an arbitrary number of tapes for a turing machine",
   "private": true,
-  "homepage": "https://gabriellebzhu.github.io/multitape-tm-simulator",
+  "homepage": "https://gabriellebzhu.github.io/multitape-turing-machine-simulator",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode development",
     "start": "webpack serve --mode development",
