@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "Simulates an arbitrary number of tapes for a turing machine",
   "private": true,
+  "homepage": "https://gabriellebzhu.github.io/multitape-tm-simulator",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode development",
     "start": "webpack serve --mode development",
     "test:build": "cross-env NODE_ENV=test npx webpack --config webpack-test.config.js --mode development",
     "test:watch": "cross-env NODE_ENV=test npx webpack --config webpack-test.config.js --mode development --watch",
     "test": "npm run test:build && jasmine-browser-runner runSpecs",
-    "test:serve": "npm run test:watch&  npx jasmine-browser-runner"
+    "test:serve": "npm run test:watch&  npx jasmine-browser-runner",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [
     "tm",
@@ -38,6 +41,7 @@
     "css-loader": "^6.8.1",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.1.0",
+    "gh-pages": "^6.1.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
     "jasmine": "^5.1.0",
