@@ -12,7 +12,7 @@
     "test": "npm run test:build && jasmine-browser-runner runSpecs",
     "test:serve": "npm run test:watch&  npx jasmine-browser-runner",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "tm",
