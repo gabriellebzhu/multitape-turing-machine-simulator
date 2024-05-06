@@ -2,21 +2,6 @@
 
 The Turing Machine is a model of computation that, due to its (relatively) simple rules and constraints, is a useful tool for exploring and proving theories in computer science.
 
-Contents
-<!-- vscode-markdown-toc -->
-* 1. [Table of Contents](#TableofContents)
-* 2. [Background](#Background)
-	* 2.1. [Motivation](#Motivation)
-	* 2.2. [What (actually) is a Turing Machine?](#WhatactuallyisaTuringMachine)
-	* 2.3. [Multitape Turing Machine](#MultitapeTuringMachine)
-* 3. [Usage](#Usage)
-
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
 ##  2. <a name='Background'></a>Background
 
 ###  2.1. <a name='Motivation'></a>Motivation
@@ -38,7 +23,7 @@ The multitape Turing Machine is a variation of the single-tape machine. As I'll 
 A Turing Machine is composed of 
 - A single tape: the input
 - An input alphabet $\Sigma$: all the possible symbols that can be present in the tape (e.g. all ASCII characters)
-- A tape alphabet $\Gamma = \Sigma \cup \{\_\}$: the input alphabet plus an auxillary symbol "_" representing a blank space.
+- A tape alphabet $`\Gamma = \Sigma \cup \{ \_ \}`$: the input alphabet plus an auxillary symbol "_" representing a blank space.
 - A set of states $Q$
 - An initial state $Q_0 \in Q$
 - A set of final states $F \subseteq Q$: if we end up in one of these states, then we accept the string
